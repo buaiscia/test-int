@@ -1,3 +1,17 @@
+import { PROCESSING_METHOD_OPTIONS, WEIGHT_UNIT_OPTIONS } from '../util/enums.js'
+import { CERTIFICATES } from '../util/fixtures.js'
+
+
+// let u = PROCESSING_METHOD_OPTIONS.forEach(value => {
+//   if(value["value"] == 'NATURAL')
+//   console.log(value["label"]);
+
+
+// });
+
+
+
+
 class GetData extends HTMLElement {
 
 
@@ -23,29 +37,11 @@ class GetData extends HTMLElement {
 
 
 
-  // getData() {
-  //   let elems = document.querySelectorAll('.listElem');
-  //   this.removeElements(elems);
-  //   if (Object.keys(localStorage).length !== 0) {
-
-  //     let obKeyArray = Object.keys(localStorage);
-  //     for (let index in localStorage) {
-  //       if (localStorage[obKeyArray[index]]) {
-  //         let parsedStorage = JSON.parse(localStorage[obKeyArray[index]]);
-  //         console.log('localStorage key is  ' + localStorage.key(index));
-  //         let localKey = localStorage.key(index);
-  //         let listPoints = document.createElement("LI");
-  //         listPoints.className = 'listElem';  
-  //         listPoints.addEventListener('click', this.removeKey(localKey))
-  //         let eachCoffee = document.createTextNode(`id is ${parsedStorage.id}, country of origin is ${parsedStorage.name}, process: ${parsedStorage.process}, certificate: ${parsedStorage.certificates.length == 0 ? 'none' : parsedStorage.certificates}, amount: ${parsedStorage.weight.amount}, unit: ${parsedStorage.weight.unit}`)
-  //         listPoints.appendChild(eachCoffee);
-  //         document.getElementById('list').appendChild(listPoints);
-  //       }
-  //     }
-  //   }
-  // };
 
   getData() {
+    let processMethod;
+    let weightUnit;
+    let certif;
     let elems = document.querySelectorAll('.listElem');
     this.removeElements(elems);
     if (Object.keys(localStorage).length !== 0) {
@@ -55,12 +51,28 @@ class GetData extends HTMLElement {
         if (Object.keys(localStorage)[i]) {
           let getIt = localStorage.getItem(obKeyArray[i])
           let parsedStorage = JSON.parse(getIt);
-          console.log('localStorage key is  ' + obKeyArray[i]);
+          // console.log('localStorage key is  ' + obKeyArray[i]);
+
+          PROCESSING_METHOD_OPTIONS.forEach(value => {
+            if (value["value"] == parsedStorage.process)
+              processMethod = value["label"];
+          });
+
+          WEIGHT_UNIT_OPTIONS.forEach(value => {
+            if (value["value"] == parsedStorage.weight.unit)
+            weightUnit = value["label"];
+          });
+
+          CERTIFICATES.forEach(value => {
+            certif = parsedStorage.certificates.length == 0 ? 'none' : parsedStorage.certificates
+          })
+
+
           let localKey = obKeyArray[i];
           let listPoints = document.createElement("LI");
           listPoints.className = 'listElem';
           listPoints.addEventListener('click', this.removeKey(localKey))
-          let eachCoffee = document.createTextNode(`id is ${parsedStorage.id}, country of origin is ${parsedStorage.name}, process: ${parsedStorage.process}, certificate: ${parsedStorage.certificates.length == 0 ? 'none' : parsedStorage.certificates}, amount: ${parsedStorage.weight.amount}, unit: ${parsedStorage.weight.unit}`)
+          let eachCoffee = document.createTextNode(`id is ${parsedStorage.id}, country of origin is ${parsedStorage.name}, process: ${processMethod}, certificate: ${certif}, amount: ${parsedStorage.weight.amount}, unit: ${weightUnit}`)
           listPoints.appendChild(eachCoffee);
           document.getElementById('list').appendChild(listPoints);
         }
