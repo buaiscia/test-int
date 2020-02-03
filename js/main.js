@@ -8,15 +8,14 @@ var outputContainer = document.getElementById("output");
 var outputMessage = document.getElementById("outputMessage");
 var outputData = document.getElementById("outputData");
 var codeData = [];
-var listPoints = null;
-let check;
-let obKey;
-let obKey1;
-let ob1;
+let obKeyArray;
+let parsedStorage;
 let max = [];
 let maxKey;
 let maxmax = 0;
+let localKey = 0;
 
+import {} from '../js/jsQR.js'
 
 const removeElements = (elms) => elms.forEach(element => element.remove());
 
@@ -77,10 +76,7 @@ function tick() {
 function list() {
 
   if (codeData) {
-    // if (check) {
-      
-    // }
-    
+  
     maxmax = getMaxKey();
 
     if(!isFinite(maxmax)) {
@@ -88,20 +84,7 @@ function list() {
     }
     
     for (let i = 0; i < codeData.length; i++) {
-      console.log(i, maxmax);
-
-      
       storeData(maxmax + 1, codeData[i]);
-
-      // var listPoints = document.createElement("LI");
-      // listPoints.className = 'listElem';
-      // // console.log(listPoints);
-
-      // var eachCoffee = document.createTextNode('id is: ' + JSON.parse(codeData[i]).id + ', name is: ' + JSON.parse(codeData[i]).name);
-
-      // listPoints.appendChild(eachCoffee);
-      // document.getElementById('list').appendChild(listPoints);
-      // check = true;
     }
     getData();
 
@@ -115,17 +98,27 @@ function storeData(index, codes) {
   
 }
 
+
 function getData() {
+  removeElements(document.querySelectorAll('.listElem'));
   if (Object.keys(localStorage).length !== 0) {
-    removeElements(document.querySelectorAll('.listElem'));
-    obKey = Object.keys(localStorage);
+    
+    obKeyArray = Object.keys(localStorage);
     for (let index in localStorage) {
-      if (localStorage[obKey[index]]) {
-        ob1 = JSON.parse(localStorage[obKey[index]]);
-        console.log(ob1);
+      if (localStorage[obKeyArray[index]]) {
+        parsedStorage = JSON.parse(localStorage[obKeyArray[index]]);
+        console.log('localblabla is  ' + localStorage.key(index));
+        localKey = localStorage.key(index);
         let listPoints = document.createElement("LI");
+
         listPoints.className = 'listElem';
-        let eachCoffee = document.createTextNode('id is: ' + ob1.id + ', name is: ' + ob1.name);
+
+        listPoints.onclick = function() {
+          window.localStorage.removeItem(localKey);
+          getData();
+        }
+
+        let eachCoffee = document.createTextNode(`id is ${parsedStorage.id}, country of origin is ${parsedStorage.name}, process: ${parsedStorage.process}, certificate: ${parsedStorage.certificates.length == 0 ? 'none' : parsedStorage.certificates}, amount: ${parsedStorage.weight.amount}, unit: ${parsedStorage.weight.unit}`)
         listPoints.appendChild(eachCoffee);
         document.getElementById('list').appendChild(listPoints);
       }
@@ -134,8 +127,9 @@ function getData() {
 
 };
 
+
 function getMaxKey () {
-  for(i=0; i<Object.keys(localStorage).length; i++) {
+  for(let i=0; i<Object.keys(localStorage).length; i++) {
     let parsedKey = parseInt(Object.keys(localStorage)[i], 10)
     max.push(parsedKey);
     // console.log((parseInt(Object.keys(localStorage)[i], 10)))
@@ -144,24 +138,3 @@ function getMaxKey () {
   return maxKey;
   
 }
-
-// getData = () => {
-//   if (Object.keys(localStorage).length !== 0) {
-//     for (let index in localStorage) {
-//       let locStore = localStorage[index];
-//       console.log(locStore);
-//       if (locStore) {
-
-//         let listPoints = document.createElement("LI");
-//         listPoints.className = 'listElem';
-//         let eachCoffee = document.createTextNode('id is: ' + JSON.parse(locStore).id + ', name is: ' + JSON.parse(locStore).name);
-//         listPoints.appendChild(eachCoffee);
-//         document.getElementById('list').appendChild(listPoints);
-//         return locStore;
-//       }
-//     }
-//   }
-// };
-
-
-
