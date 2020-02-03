@@ -1,4 +1,3 @@
-`use strict`
 
 var video = document.createElement("video");
 var canvasElement = document.getElementById("canvas");
@@ -8,18 +7,19 @@ var outputContainer = document.getElementById("output");
 var outputMessage = document.getElementById("outputMessage");
 var outputData = document.getElementById("outputData");
 var codeData = [];
-let obKeyArray;
-let parsedStorage;
+var button;
+
 let max = [];
 let maxKey;
 let maxmax = 0;
-let localKey = 0;
 
-import {} from '../js/jsQR.js'
+import GetData from '../js/getData.js'
 
-const removeElements = (elms) => elms.forEach(element => element.remove());
+const GetAllData = new GetData();
 
-getData();
+GetAllData.getData();
+
+
 
 function drawLine(begin, end, color) {
   canvas.beginPath();
@@ -63,7 +63,7 @@ function tick() {
       outputData.parentElement.hidden = false;
       outputData.innerText = codeData;
       canvasElement.hidden = true;
-
+      makeQrButton();
       list();
       return codeData;
     } else {
@@ -76,18 +76,18 @@ function tick() {
 function list() {
 
   if (codeData) {
-  
+    console.log(codeData);
+    
     maxmax = getMaxKey();
 
-    if(!isFinite(maxmax)) {
+    if (!isFinite(maxmax)) {
       maxmax = 0;
     }
-    
+
     for (let i = 0; i < codeData.length; i++) {
       storeData(maxmax + 1, codeData[i]);
     }
-    getData();
-
+    GetAllData.getData();
 
   }
 }
@@ -95,46 +95,32 @@ function list() {
 function storeData(index, codes) {
   window.localStorage.setItem(index, codes);
   console.log('storedata called');
-  
+
 }
 
 
-function getData() {
-  removeElements(document.querySelectorAll('.listElem'));
-  if (Object.keys(localStorage).length !== 0) {
-    
-    obKeyArray = Object.keys(localStorage);
-    for (let index in localStorage) {
-      if (localStorage[obKeyArray[index]]) {
-        parsedStorage = JSON.parse(localStorage[obKeyArray[index]]);
-        console.log('localblabla is  ' + localStorage.key(index));
-        localKey = localStorage.key(index);
-        let listPoints = document.createElement("LI");
 
-        listPoints.className = 'listElem';
-
-        listPoints.onclick = function() {
-          window.localStorage.removeItem(localKey);
-          getData();
-        }
-
-        let eachCoffee = document.createTextNode(`id is ${parsedStorage.id}, country of origin is ${parsedStorage.name}, process: ${parsedStorage.process}, certificate: ${parsedStorage.certificates.length == 0 ? 'none' : parsedStorage.certificates}, amount: ${parsedStorage.weight.amount}, unit: ${parsedStorage.weight.unit}`)
-        listPoints.appendChild(eachCoffee);
-        document.getElementById('list').appendChild(listPoints);
-      }
-    }
-  }
-
-};
-
-
-function getMaxKey () {
-  for(let i=0; i<Object.keys(localStorage).length; i++) {
+function getMaxKey() {
+  for (let i = 0; i < Object.keys(localStorage).length; i++) {
     let parsedKey = parseInt(Object.keys(localStorage)[i], 10)
     max.push(parsedKey);
-    // console.log((parseInt(Object.keys(localStorage)[i], 10)))
   }
   maxKey = Math.max.apply(null, max);
   return maxKey;
+
+}
+
+
+function makeQrButton() {
+  if(!button) {
+  button = document.createElement('button');
+  button.innerHTML = 'New QR code';
+
+  var newQR = document.getElementById('newQR');
+  newQR.appendChild(button);
+  button.addEventListener('click', function() {
+    return tick();
+  } )
+  }
   
 }
