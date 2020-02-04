@@ -1,4 +1,20 @@
+
+
+
+
 # Cropster Frontend Task
+
+
+## Instructions on how to use it
+
+- Run a local server through nodeJS or equal. On nodeJS you use the command 'http-server -c-1' and open localhost on http://127.0.0.1:8080/
+- Scan the codes which will be stored in LocalStorage and retrieved in the application as a list. You can add and delete every code without limitation.
+
+### Notes
+
+- It's possible to create a fully functional nodeJS app, but I implemented it this way in order to avoid also the Express framework. The server initialization is in order to import/export modules.
+
+## Description
 
 This example is based on a real business case. It's about creating a QR-Code scanner being capable of importing coffee data into your application, persist it on the client's device and present it in a list view with possibility to delete it again.
 

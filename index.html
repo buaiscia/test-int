@@ -2,85 +2,32 @@
 
 <head>
     <meta charset="utf-8">
-    <title>jsQR Demo</title>
+    <title>Coffee QR reader Demo</title>
     <script src="js/jsQR.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Ropa Sans', sans-serif;
-            color: #333;
-            max-width: 640px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        #githubLink {
-            position: absolute;
-            right: 0;
-            top: 12px;
-            color: #2D99FF;
-        }
-
-        h1 {
-            margin: 10px 0;
-            font-size: 40px;
-        }
-
-        #loadingMessage {
-            text-align: center;
-            padding: 40px;
-            background-color: #eee;
-        }
-
-        #canvas {
-            width: 100%;
-        }
-
-        #output {
-            margin-top: 20px;
-            background: #eee;
-            padding: 10px;
-            padding-bottom: 0;
-        }
-
-        #output div {
-            padding-bottom: 10px;
-            word-wrap: break-word;
-        }
-
-        #noQRFound {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
-    <h1>jsQR Demo</h1>
-    <a id="githubLink" href="https://github.com/cozmo/jsQR">View documentation on Github</a>
-    <p>Pure JavaScript QR code decoding library.</p>
+    <h1>Coffee QR reader Demo</h1>
     <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
     <canvas id="canvas" hidden></canvas>
     <div id="output" hidden>
         <div id="outputMessage">No QR code detected.</div>
-        <div hidden>
-            <b>Data:</b>
-            <span id="outputData"></span>
-        </div>
-        <div id="newQR">
-            <!-- <button onclick="tick()">New QR code</button> -->
-        </div>
-        <!-- <div id='list'></div> -->
-        <get-data id='list'></get-data>
+        <div><p>To add an item, put your QR code in front of the camera. <br/> To delete an item, click on it.</p></div>
+        <div id="newQR"></div>
     </div>
-    
+    <div class="list">
+        <h3 id='titleList' hidden>List of data:</h3>
+        <ul>
+            <!-- get web component -->
+            <get-data id='list'></get-data> 
+        </ul>
+
+    </div>
+
     <script type="module" src="js/getData.js"></script>
-
     <script type="module" src="js/main.js"></script>
-    <!-- <script type="module" src="util/enums.js"></script> -->
-   
-    
-
-    
 
 
 </body>
