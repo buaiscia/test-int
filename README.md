@@ -58,4 +58,3 @@ Please list scanned coffees from data source in a simple list view. Also, allow 
 - No special CSS required
 - No responsiveness required
 - No frameworks allowed, use only ES6
-- Questions: Get in touch at armin@cropster.com
