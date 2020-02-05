@@ -14,14 +14,17 @@
     <canvas id="canvas" hidden></canvas>
     <div id="output" hidden>
         <div id="outputMessage">No QR code detected.</div>
-        <div><p>To add an item, put your QR code in front of the camera. <br/> To delete an item, click on it.</p></div>
+        <div>
+            <p>To add an item, put your QR code in front of the camera.
+                <br/> To delete an item, click on it.</p>
+        </div>
         <div id="newQR"></div>
     </div>
     <div class="list">
         <h3 id='titleList' hidden>List of data:</h3>
         <ul>
             <!-- get web component -->
-            <get-data id='list'></get-data> 
+            <get-data id='list'></get-data>
         </ul>
 
     </div>
@@ -29,6 +32,9 @@
     <script type="module" src="js/getData.js"></script>
     <script type="module" src="js/main.js"></script>
 
+    <script nomodule>
+        alert("Old browsers ignore script with unknown type=module, functionalities can be limited");
+    </script>
 
 </body>
 

@@ -1,5 +1,3 @@
-'use strict'
-
 // defining variables
 
 var video = document.createElement("video");

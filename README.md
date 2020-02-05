@@ -1,18 +1,14 @@
-
-
-
-
 # Cropster Frontend Task
 
 
 ## Instructions on how to use it
 
-- Run a local server through nodeJS or equal. On nodeJS you use the command 'http-server -c-1' and open localhost on http://127.0.0.1:8080/
+- Run a local server through nodeJS or equal. On nodeJS you can use the command 'http-server -c-1' or similar and open localhost on http://127.0.0.1:8080/
 - Scan the codes which will be stored in LocalStorage and retrieved in the application as a list. You can add and delete every code without limitation.
 
 ### Notes
 
-- It's possible to create a fully functional nodeJS app, but I implemented it this way in order to avoid also the Express framework. The server initialization is in order to import/export modules.
+- It's possible to create a fully functional nodeJS app, but I implemented it this way in order to use only pure JS files, and avoid the Express framework too. The server initialization is in order to import/export modules. Please let me know if you have any questions.
 
 ## Description
 
