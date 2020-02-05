@@ -1,4 +1,3 @@
-# Cropster Frontend Task
 
 
 ## Instructions on how to use it
@@ -9,6 +8,16 @@
 ### Notes
 
 - It's possible to create a fully functional nodeJS app, but I implemented it this way in order to use only pure JS files, and avoid the Express framework too. The server initialization is in order to import/export modules. Please let me know if you have any questions.
+
+### Tree
+
+- [index.html](index.html)          // loaded on server start
+- __data__                          // test data
+- __util__                          // collections/enums
+- __js__                            // scripts
+     - [getData.js](js/getData.js)  // web component to list
+     - [jsQR.js](js/jsQR.js)        // library
+     - [main.js](js/main.js)        // main script
 
 ## Description
 
